@@ -2,6 +2,7 @@
   "author": "Silas Knobel <dev@katun.ch>",
   "name": "swisscom-sms-api",
   "description": "Node module to send SMS via the Swisscom SMS API",
+  "homepage": "https://developer.swisscom.ch",
   "version": "0.1.0",
   "main": "./lib/SCSMSAPI",
   "dependencies": {
