@@ -23,5 +23,8 @@
   "repository": {
     "type":"git",
     "url":"git@github.com:katunch/swisscom-sms-api.git"
-  }
+  },
+  "keywords": [
+        "SMS", "Swisscom", "api", "Short Message"
+  ]
 }
