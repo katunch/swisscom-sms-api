@@ -7,8 +7,8 @@
 # takes the following config object
 #
 # config = 
-# 	sender: '41791234567'
-# 	clientId: 'YOUR-ACCESS-TOKEN'
+# 	sender: '+41791234567'
+# 	clientId: 'PLACE-YOUR-CONSUMER-KEY-HERE'
 
 
 https 			= require 'https'
@@ -23,7 +23,7 @@ class SCSMSAPI
 
 	Util.inherits SCSMSAPI, EventEmitter
 
-	sendSMS: (recipient, message) ->
+	send: (recipient, message) ->
 		debug "sending sms '#{message}' to recipient #{recipient}"
 		@_sendRequest @_buildMessageRequestBody(recipient, message)
 
@@ -32,14 +32,14 @@ class SCSMSAPI
 		requestData =
 			outboundSMSMessageRequest:
 				address: ["tel:#{recipient}"]
-				senderAddress: "tel:+#{@config.sender}"
-				senderName: "+#{@config.sender}"
+				senderAddress: "tel:#{@config.sender}"
+				senderName: "#{@config.sender}"
 				outboundSMSTextMessage:
 					message: message
 
 	_endpointUrl: ->
 		debug "creating endpointUrl"
-		sender = escape "tel:+#{@config.sender}"
+		sender = escape "tel:#{@config.sender}"
 		endpointUrl = url.parse "https://api.swisscom.com/v1/messaging/sms/outbound/#{sender}/requests"
 
 	_sendRequest: (messageRequest) ->

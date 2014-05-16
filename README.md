@@ -16,7 +16,7 @@ SMSApi 		= require 'swisscom-sms-api'
 
 config = 
 	smsApi:
-		sender: '41791234567'
+		sender: '+41791234567'
 		clientId: 'YOUR-CONSUMER-KEY-HERE'
 
 sms = 
@@ -24,7 +24,7 @@ sms =
 	messageText: 'hello world'
 
 gateway = new SMSApi config.smsApi
-gateway.sendSMS sms.recipient, sms.messageText
+gateway.send sms.recipient, sms.messageText
 
 ```
 Run `coffee example.coffee` from your command line.
@@ -40,7 +40,7 @@ SMSApi = require('swisscom-sms-api');
 
 config = {
   smsApi: {
-    sender: '41791234567',
+    sender: '+41791234567',
     clientId: 'YOUR-CONSUMER-KEY-HERE'
   }
 };
@@ -52,7 +52,7 @@ sms = {
 
 gateway = new SMSApi(config.smsApi);
 
-gateway.sendSMS(sms.recipient, sms.messageText);
+gateway.send(sms.recipient, sms.messageText);
 
 ```
 Run `node example.js` from your command line.

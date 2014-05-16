@@ -3,7 +3,7 @@
   "name": "swisscom-sms-api",
   "description": "Node module to send SMS via the Swisscom SMS API",
   "homepage": "https://developer.swisscom.ch",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "main": "./lib/SCSMSAPI",
   "dependencies": {
     "debug": "^0.8.1"
