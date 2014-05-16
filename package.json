@@ -1,0 +1,27 @@
+{
+  "author": "Silas Knobel <dev@katun.ch>",
+  "name": "swisscom-sms-api",
+  "description": "Node module to send SMS via the Swisscom SMS API",
+  "version": "0.1.0",
+  "main": "./lib/SCSMSAPI",
+  "dependencies": {
+    "debug": "^0.8.1"
+  },
+  "devDependencies": {
+    "coffee-script": "^1.7.1"
+  },
+  "optionalDependencies": {},
+  "scripts": {
+    "build":"coffee --compile --output lib/ src/",
+    "clean": "rm -f lib/*.{js,map}",
+    "prepublish": "npm run build",
+    "postpublish": "npm run clean"
+  },
+  "engines": {
+    "node": "*"
+  },
+  "repository": {
+    "type":"git",
+    "url":"git@github.com:katunch/swisscom-sms-api.git"
+  }
+}
