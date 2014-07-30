@@ -24,6 +24,16 @@ sms =
 	messageText: 'hello world'
 
 gateway = new SMSApi config.smsApi
+
+gateway.on 'sent', ()->
+	console.log 'all messages sent'
+
+gateway.on 'error', (error) ->
+	console.log 'an error occurred: ', error
+
+gateway.on 'deliveryStatus', (status) ->
+	consoloe log 'this is a status for each recipient', status
+
 gateway.send sms.recipient, sms.messageText
 
 ```
@@ -52,13 +62,24 @@ sms = {
 
 gateway = new SMSApi(config.smsApi);
 
+gateway.on('sent', function() {
+  return console.log('all messages sent');
+});
+
+gateway.on('error', function(error) {
+  return console.log('an error occurred: ', error);
+});
+
+gateway.on('deliveryStatus', function(status) {
+  return console.log('deliveryStatus: ', status);
+});
+
 gateway.send(sms.recipient, sms.messageText);
 
 ```
 Run `node example.js` from your command line.
 
 # Installation
-	npm install [-g] coffee-script
 	npm install swisscom-sms-api
 
 # Debugging
