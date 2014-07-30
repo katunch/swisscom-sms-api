@@ -1,6 +1,6 @@
 # SCSMSAPI.coffee
 #
-# version 0.1.0
+# version 0.2.0
 # author https://github.com/katunch
 # based on https://developer.swisscom.com/documentation/api/sms-messaging-api
 #
@@ -16,6 +16,7 @@ debug			= require('debug')('swisscom-sms-api')
 {EventEmitter}	= require 'events'
 Util			= require 'util'
 url 			= require 'url'
+async			= require 'async'
 
 class SCSMSAPI
 	constructor: (@config) ->
@@ -25,7 +26,17 @@ class SCSMSAPI
 
 	send: (recipient, message) ->
 		debug "sending sms '#{message}' to recipient #{recipient}"
-		@_sendRequest @_buildMessageRequestBody(recipient, message)
+		tasks = [
+					(callback) =>
+						@_sendRequest @_buildMessageRequestBody(recipient, message), callback
+				]
+
+		async.parallel tasks, (error, results) => 
+			if error is not null
+				@emit 'error', error
+			else
+			 	@emit 'sent'
+
 
 	_buildMessageRequestBody: (recipient, message) ->
 		debug "build message body with recipient: '#{recipient}, message: '#{message}"
@@ -42,7 +53,7 @@ class SCSMSAPI
 		sender = escape "tel:#{@config.sender}"
 		endpointUrl = url.parse "https://api.swisscom.com/v1/messaging/sms/outbound/#{sender}/requests"
 
-	_sendRequest: (messageRequest) ->
+	_sendRequest: (messageRequest, cb) ->
 		debug "sending request"
 		self = @
 		endpointUrl = @_endpointUrl()
@@ -69,14 +80,27 @@ class SCSMSAPI
 			res.on 'end', ->
 				debug "request ended with response: ", responseData
 				self.emit 'end', responseData
+				self._parseDeliveryInfo responseData
+				cb?(null)
 
 		req.on 'error', (error) ->
 			debug "request error: ", error
 			self.emit 'error', error
+			cb?(error,null)
 
 		req.write JSON.stringify(messageRequest)
 		debug "sending content: ", JSON.stringify(messageRequest)
 		req.end()
 
+	_parseDeliveryInfo: (response) ->
+		responseObject = JSON.parse response
+		deliveryInfo = responseObject['outboundSMSMessageRequest']['deliveryInfoList']['deliveryInfo']
+		debug 'deliveryInfo', deliveryInfo
+
+		@_emitDeliveryStatus deliveryStatus for deliveryStatus in deliveryInfo
+
+	_emitDeliveryStatus: (deliveryStatus) ->
+		@emit 'deliveryStatus', deliveryStatus
+		
 
 exports = module.exports = SCSMSAPI
