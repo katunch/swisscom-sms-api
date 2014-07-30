@@ -80,6 +80,7 @@ class SCSMSAPI
 			res.on 'end', ->
 				debug "request ended with response: ", responseData
 				self.emit 'end', responseData
+				self._parseDeliveryInfo responseData
 				cb?(null)
 
 		req.on 'error', (error) ->
@@ -90,5 +91,16 @@ class SCSMSAPI
 		req.write JSON.stringify(messageRequest)
 		debug "sending content: ", JSON.stringify(messageRequest)
 		req.end()
+
+	_parseDeliveryInfo: (response) ->
+		responseObject = JSON.parse response
+		deliveryInfo = responseObject['outboundSMSMessageRequest']['deliveryInfoList']['deliveryInfo']
+		debug 'deliveryInfo', deliveryInfo
+
+		@_emitDeliveryStatus deliveryStatus for deliveryStatus in deliveryInfo
+
+	_emitDeliveryStatus: (deliveryStatus) ->
+		@emit 'deliveryStatus', deliveryStatus
+		
 
 exports = module.exports = SCSMSAPI
