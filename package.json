@@ -1,35 +1,35 @@
 {
-  "author": "Silas Knobel <dev@katun.ch>",
-  "name": "swisscom-sms-api",
-  "description": "Node module to send SMS via the Swisscom SMS API",
-  "homepage": "https://developer.swisscom.ch",
-  "version": "0.1.2",
-  "main": "./lib/SCSMSAPI",
-  "dependencies": {
-    "async": "^0.9.0",
-    "debug": "^0.8.1"
-  },
-  "devDependencies": {
-    "coffee-script": "^1.7.1"
-  },
-  "optionalDependencies": {},
-  "scripts": {
-    "build": "coffee --compile --output lib/ src/",
-    "clean": "rm -f lib/*.{js,map}",
-    "prepublish": "npm run build",
-    "postpublish": "npm run clean"
-  },
-  "engines": {
-    "node": "*"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:katunch/swisscom-sms-api.git"
-  },
-  "keywords": [
-    "SMS",
-    "Swisscom",
-    "api",
-    "Short Message"
-  ]
+    "author": "Silas Knobel <dev@katun.ch>",
+    "name": "swisscom-sms-api",
+    "description": "Node module to send SMS via the Swisscom SMS API",
+    "homepage": "https://developer.swisscom.ch",
+    "version": "0.2.0",
+    "main": "./lib/SCSMSAPI",
+    "dependencies": {
+        "async": "^0.9.0",
+        "debug": "^0.8.1"
+    },
+    "devDependencies": {
+        "coffee-script": "^1.7.1"
+    },
+    "optionalDependencies": {},
+    "scripts": {
+        "build": "coffee --compile --output lib/ src/",
+        "clean": "rm -f lib/*.{js,map}",
+        "prepublish": "npm run build",
+        "postpublish": "npm run clean"
+    },
+    "engines": {
+        "node": "*"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:katunch/swisscom-sms-api.git"
+    },
+    "keywords": [
+        "SMS",
+        "Swisscom",
+        "api",
+        "Short Message"
+    ]
 }

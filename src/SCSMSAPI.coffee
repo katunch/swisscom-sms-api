@@ -1,6 +1,6 @@
 # SCSMSAPI.coffee
 #
-# version 0.1.0
+# version 0.2.0
 # author https://github.com/katunch
 # based on https://developer.swisscom.com/documentation/api/sms-messaging-api
 #
