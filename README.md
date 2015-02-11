@@ -1,3 +1,5 @@
+# NOTE: This repo is no longer maintained... 
+
 # swisscom-sms-api
 Node module to send SMS via the [Swisscom SMS API](https://developer.swisscom.com/documentation/api/sms-messaging-api).
 
